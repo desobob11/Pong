@@ -15,7 +15,8 @@ public class Ball {
     private Sprite sprite;
     private Vector2 vector;
     private Rectangle hitBox;
-    private final int SPEED = 5;
+
+    private final int SPEED = 10;
     private boolean canMove = true;
 
     public Ball() {
@@ -27,6 +28,7 @@ public class Ball {
         hitBox.setHeight(sprite.getHeight());
         hitBox.setX(sprite.getX());
         hitBox.setY(sprite.getY());
+        this.vector = new Vector2(1,0);
 
     }
 
@@ -47,8 +49,7 @@ public class Ball {
     public void drop() {
         Random ran = new Random();
         int ranDegree = ran.nextInt(360);
-        this.vector = new Vector2(1,0);
-        vector.setAngleDeg(10);
+        vector.setAngleDeg(60);
         //this.vector.setAngleDeg((float)ranDegree);
     }
 
@@ -68,15 +69,13 @@ public class Ball {
             if (hitBox.overlaps(paddle.getHitBox())) {
                 vector.setAngleDeg(180 - vector.angleDeg());
             }
-            else if (hitBox.getY() == PongMain.WINDOW_HEIGHT - 300) {
-                canMove = false;
-                vector.setAngleDeg(90 - vector.angleDeg());
-                canMove = true;
-            }
-            else if (hitBox.getY() == 0) {
-                vector.setAngleDeg(90);
+        }
+        boolean hitTip = hitBox.getY() >= PongMain.WINDOW_HEIGHT - sprite.getHeight();
+        boolean hitBottom = hitBox.getY() <= 0;
+         if (hitTip || hitBottom) {
 
-            }
+            vector.setAngleDeg(360 - vector.angleDeg());
+
         }
     }
 

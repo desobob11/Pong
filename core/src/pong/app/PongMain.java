@@ -34,7 +34,7 @@ import java.awt.*;
 
 public class PongMain extends ApplicationAdapter {
 	public static final float WINDOW_WIDTH = 1200;
-	public static final float WINDOW_HEIGHT = 600;
+	public static final float WINDOW_HEIGHT = 900;
 
 
 	SpriteBatch batch;
