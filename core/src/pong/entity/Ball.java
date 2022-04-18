@@ -69,6 +69,7 @@ public class Ball {
 
     public void isColliding(Paddle[] paddles) {
         for (Paddle paddle : paddles) {
+            /*
             boolean isRight = paddle.getType() == 'r';
             float[] left = {290, 315, 0, 45, 20};
             float[] right = {250, 225, 180, 135, 110};
@@ -91,13 +92,14 @@ public class Ball {
                 }
 
             }
-            /*
+            */
+
             if (hitBox.overlaps(paddle.getHitBox())) {
                 vector.setAngleDeg(180 - vector.angleDeg());
                 ++hitCount;
             }
 
-             */
+
         }
 
 
