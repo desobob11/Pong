@@ -1,8 +1,11 @@
 package pong.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import org.w3c.dom.css.Rect;
 import pong.app.PongMain;
 import pong.enums.*;
 
@@ -15,10 +18,43 @@ public class Paddle {
     private char side;
     private final int HORIZONTAL_OFFSET = 100;
     private final int VERTICAL_OFFSET = 100;
-    private final int SPEED = 10;
+    private final int SPEED = 20;
+    private final short SEGMENT_COUNT = 5;
+    private float[] segments;
+    private Rectangle[] segRects;
+
+
+    private void segmentize() {
+        segments = new float[SEGMENT_COUNT];
+        float segHeight = sprite.getHeight() / SEGMENT_COUNT;
+
+        for (int i = 0; i < segments.length; ++i) {
+            segments[i] = i * segHeight;
+        }
+
+        for (int i = 0; i < segRects.length; ++i) {
+            Rectangle rect = new Rectangle();
+            rect.setWidth(sprite.getWidth());
+            rect.setHeight(segHeight);
+            float y = sprite.getY();
+            rect.setX(sprite.getX());
+            rect.setY(y + (i * segHeight));
+            this.segRects[i] = rect;
+        }
+    }
+
+    private void updateSegments() {
+        float segHeight = sprite.getHeight() / SEGMENT_COUNT;
+        for (int i = 0; i < segRects.length; ++i) {
+            float y = sprite.getY();
+            segRects[i].setY(y + (i * segHeight));
+        }
+    }
 
     public Paddle(char leftOrRight) {
         this.sprite = new Sprite(Sprites.PADDLE.get());
+        this.sprite.setSize(20, 100);
+        segRects = new Rectangle[SEGMENT_COUNT];
         this.side = leftOrRight;
         this.hitBox = new Rectangle();
         hitBox.setWidth(sprite.getWidth());
@@ -32,7 +68,14 @@ public class Paddle {
             sprite.setCenterX(PongMain.WINDOW_WIDTH - HORIZONTAL_OFFSET);
             sprite.setCenterY(PongMain.WINDOW_HEIGHT / 2);
         }
+        segmentize();
         updateHitBox();
+    }
+
+    private void drawSegments(ShapeRenderer shape) {
+        for (Rectangle rect : segRects) {
+            shape.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+        }
     }
 
     private void updateHitBox() {
@@ -40,8 +83,11 @@ public class Paddle {
         hitBox.setY(sprite.getY());
     }
 
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, ShapeRenderer shape) {
         sprite.draw(batch);
+
+       // drawSegments(shape);
+
         if (checkUp()) {
             moveUp();
         }
@@ -55,7 +101,6 @@ public class Paddle {
         if (side == 'l') {
             if (Gdx.input.isKeyPressed((Input.Keys.S))) {
                 sprite.translateY(-SPEED);
-                updateHitBox();
             }
 
            // if (Gdx.input.isKeyPressed(Input.Keys.S)) {
@@ -65,7 +110,7 @@ public class Paddle {
         else if (side == 'r') {
             if (Gdx.input.isKeyPressed((Input.Keys.DOWN))) {
                 sprite.translateY(-SPEED);
-                updateHitBox();
+
             }
 
 
@@ -74,13 +119,15 @@ public class Paddle {
               //  this.sprite.setY(this.sprite.getY() - 1 * SPEED);
             //}
         }
+        updateHitBox();
+        updateSegments();
     }
 
     private void moveDown() {
         if (side == 'l') {
             if (Gdx.input.isKeyPressed((Input.Keys.W))) {
                 sprite.translateY(SPEED);
-                updateHitBox();
+
             }
 
             // if (Gdx.input.isKeyPressed(Input.Keys.S)) {
@@ -91,7 +138,7 @@ public class Paddle {
 
             if (Gdx.input.isKeyPressed((Input.Keys.UP))) {
                 sprite.translateY(SPEED);
-                updateHitBox();
+
             }
 
 
@@ -100,6 +147,8 @@ public class Paddle {
             //  this.sprite.setY(this.sprite.getY() - 1 * SPEED);
             //}
         }
+        updateHitBox();
+        updateSegments();
     }
 
     private boolean checkUp() {
@@ -116,6 +165,10 @@ public class Paddle {
 
     public Rectangle getHitBox() {
         return new Rectangle(hitBox);
+    }
+
+    public Rectangle[] getSegments() {
+        return segRects;
     }
 
 }

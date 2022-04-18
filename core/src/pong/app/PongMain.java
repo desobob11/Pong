@@ -36,7 +36,6 @@ public class PongMain extends ApplicationAdapter {
 	public static final float WINDOW_WIDTH = 1200;
 	public static final float WINDOW_HEIGHT = 900;
 
-
 	SpriteBatch batch;
 	ShapeRenderer shape;
 
@@ -76,16 +75,16 @@ public class PongMain extends ApplicationAdapter {
 		shape.begin();
 		shape.setColor(Color.RED);
 		Rectangle rightRect = right.getHitBox();
-		shape.rect(rightRect.getX(), rightRect.getY(), rightRect.getWidth(), rightRect.getHeight());
+		//shape.rect(rightRect.getX(), rightRect.getY(), rightRect.getWidth(), rightRect.getHeight());
 
 		Rectangle leftRect = left.getHitBox();
-		shape.rect(leftRect.getX(), leftRect.getY(), leftRect.getWidth(), leftRect.getHeight());
+		//shape.rect(leftRect.getX(), leftRect.getY(), leftRect.getWidth(), leftRect.getHeight());
 
 		Rectangle ballBox = ball.getHitBox();
-		shape.rect(ballBox.getX(), ballBox.getY(), ballBox.getWidth(), ballBox.getHeight());
+		//shape.rect(ballBox.getX(), ballBox.getY(), ballBox.getWidth(), ballBox.getHeight());
 
-		left.draw(batch);
-		right.draw(batch);
+		left.draw(batch, shape);
+		right.draw(batch, shape);
 		ball.draw(batch, paddles);
 		batch.end();
 		shape.end();
