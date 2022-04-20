@@ -171,4 +171,8 @@ public class Paddle {
         return segRects;
     }
 
+    public Sprite getSprite() {
+        return sprite;
+    }
+
 }

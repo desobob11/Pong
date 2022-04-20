@@ -10,6 +10,7 @@ import pong.enums.*;
 import pong.app.*;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Ball {
     private Sprite sprite;
@@ -39,8 +40,8 @@ public class Ball {
         hitBox.setY(sprite.getY());
     }
 
-    public void draw(SpriteBatch batch, Paddle[] paddles) {
-        isColliding(paddles);
+    public void draw(SpriteBatch batch, Paddle[] paddles, Score[] scores) {
+        isColliding(paddles, scores);
         move();
         updateHitBox();
         sprite.draw(batch);
@@ -50,11 +51,17 @@ public class Ball {
 
     public void drop() {
         Random ran = new Random();
+        float ranFloat = ran.nextFloat();
+        float ranDegree = 0;
+
+        if (ranFloat <= 0.5) {
+            ranDegree = 180;
+        }
+
         sprite.setCenterX(PongMain.WINDOW_WIDTH / 2);
         sprite.setCenterY(PongMain.WINDOW_HEIGHT / 2);
-        speed = 10;
+        speed = 20;
         hitCount = 0;
-        int ranDegree = ran.nextInt(360);
         vector.setAngleDeg(ranDegree);
     }
 
@@ -67,11 +74,15 @@ public class Ball {
 
     }
 
-    public void isColliding(Paddle[] paddles) {
+    public void isColliding(Paddle[] paddles, Score[] scores) {
         for (Paddle paddle : paddles) {
             boolean isRight = paddle.getType() == 'r';
-            float[] left = {290, 315, 0, 45, 20};
-            float[] right = {250, 225, 180, 135, 110};
+
+            float ranRight = ThreadLocalRandom.current().nextFloat(160, 200);
+            float ranLeft = ThreadLocalRandom.current().nextFloat(340, 380);
+
+            float[] left = {290, 315, ranLeft, 45, 20};
+            float[] right = {250, 225, ranRight, 135, 110};
 
             if (isRight) {
                 for (int i = 0; i < right.length; ++i) {
@@ -91,13 +102,7 @@ public class Ball {
                 }
 
             }
-            /*
-            if (hitBox.overlaps(paddle.getHitBox())) {
-                vector.setAngleDeg(180 - vector.angleDeg());
-                ++hitCount;
-            }
 
-             */
         }
 
 
@@ -113,8 +118,23 @@ public class Ball {
 
         }
 
-        if (hitRight || hitLeft) {
+        if (hitRight) {
             this.drop();
+            for (Score score : scores) {
+                if (score.getType() == 'l') {
+                    score.addScore();
+                    score.refresh();
+                }
+            }
+        }
+        if(hitLeft) {
+            this.drop();
+            for (Score score : scores) {
+                if (score.getType() == 'r') {
+                    score.addScore();
+                    score.refresh();
+                }
+            }
         }
 
 
@@ -125,11 +145,16 @@ public class Ball {
     }
 
     public void speedUp() {
-        if (hitCount == 10) {
+        if (hitCount == 4) {
             speed += 5;
             hitCount = 0;
         }
     }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
 
 
 }
