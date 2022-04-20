@@ -72,7 +72,7 @@ public class Paddle {
         updateHitBox();
     }
 
-    private void drawSegments(ShapeRenderer shape) {
+    public void drawSegments(ShapeRenderer shape) {
         for (Rectangle rect : segRects) {
             shape.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
         }
@@ -86,8 +86,6 @@ public class Paddle {
     public void draw(SpriteBatch batch, ShapeRenderer shape) {
         sprite.draw(batch);
 
-       // drawSegments(shape);
-
         if (checkUp()) {
             moveUp();
         }
@@ -96,28 +94,18 @@ public class Paddle {
         }
     }
 
-
     private void moveUp() {
         if (side == 'l') {
             if (Gdx.input.isKeyPressed((Input.Keys.S))) {
                 sprite.translateY(-SPEED);
             }
 
-           // if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-             //   this.sprite.setY(this.sprite.getY() - 1 * SPEED);
-            //}
         }
         else if (side == 'r') {
             if (Gdx.input.isKeyPressed((Input.Keys.DOWN))) {
                 sprite.translateY(-SPEED);
-
             }
 
-
-
-            //if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-              //  this.sprite.setY(this.sprite.getY() - 1 * SPEED);
-            //}
         }
         updateHitBox();
         updateSegments();
@@ -127,25 +115,15 @@ public class Paddle {
         if (side == 'l') {
             if (Gdx.input.isKeyPressed((Input.Keys.W))) {
                 sprite.translateY(SPEED);
-
             }
 
-            // if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            //   this.sprite.setY(this.sprite.getY() - 1 * SPEED);
-            //}
         }
         else if (side == 'r') {
 
             if (Gdx.input.isKeyPressed((Input.Keys.UP))) {
                 sprite.translateY(SPEED);
-
             }
 
-
-
-            //if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            //  this.sprite.setY(this.sprite.getY() - 1 * SPEED);
-            //}
         }
         updateHitBox();
         updateSegments();
