@@ -271,5 +271,13 @@ public class Ball {
         }
     }
 
+    public Vector2 getVector() {
+        return new Vector2(vector);
+    }
+
+    public Sprite getSprite() {
+        return new Sprite(sprite);
+    }
+
 
 }

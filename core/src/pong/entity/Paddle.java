@@ -129,6 +129,21 @@ public class Paddle {
         updateSegments();
     }
 
+
+    public void translateUp() {
+        boolean maxHeight = sprite.getY() + sprite.getHeight() >= PongMain.WINDOW_HEIGHT;
+        if (!maxHeight) {
+            sprite.translateY(SPEED);
+        }
+    }
+
+    public void translateDown() {
+        boolean minHeight = sprite.getY() <= 0;
+        if (!minHeight) {
+            sprite.translateY(-SPEED);
+        }
+    }
+
     private boolean checkUp() {
         return !(sprite.getY() <= 0);
     }
