@@ -33,9 +33,12 @@ public class AI {
         else if (movingDown && !isLevel) {
             this.paddle.translateDown();
         }
+    }
 
+    public void crackedMode(Ball ball) {
+        Vector2 vectorCopy = ball.getVector();
 
-
+        paddle.setY(ball.getSprite().getY());
 
     }
 

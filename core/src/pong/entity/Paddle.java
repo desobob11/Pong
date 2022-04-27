@@ -144,6 +144,8 @@ public class Paddle {
         }
     }
 
+
+
     private boolean checkUp() {
         return !(sprite.getY() <= 0);
     }
@@ -166,6 +168,10 @@ public class Paddle {
 
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public void setY(float y) {
+        sprite.setCenterY(y);
     }
 
 }

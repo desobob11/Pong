@@ -24,7 +24,7 @@ import pong.entity.*;
 public class PongMain extends ApplicationAdapter {
 	//final parameters for window dimensions
 	public static final float WINDOW_WIDTH = 1200;
-	public static final float WINDOW_HEIGHT = 700;
+	public static final float WINDOW_HEIGHT = 900;
 	private final short WIN_LIMIT = 10;
 
 
@@ -165,7 +165,8 @@ public class PongMain extends ApplicationAdapter {
 			Gdx.app.exit();
 		}
 
-		ai.moveToBall(ball);
+		//ai.moveToBall(ball);
+		ai.crackedMode(ball);
 
 		//always drawn scores and net
 		net.draw(batch);
