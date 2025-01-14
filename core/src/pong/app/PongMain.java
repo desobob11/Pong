@@ -165,8 +165,8 @@ public class PongMain extends ApplicationAdapter {
 			Gdx.app.exit();
 		}
 
-	//	ai.moveToBall(ball);			// choose this for fair A!
-		//ai.crackedMode(ball);			// choose this for overpowered AI
+		//ai.moveToBall(ball);			// choose this for fair A!
+		ai.crackedMode(ball);			// choose this for overpowered AI
 
 										// leave both commented out for 1v1 between real people
 
