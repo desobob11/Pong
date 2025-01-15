@@ -65,7 +65,7 @@ To play the game, simply have a valid installation of a [**Java Runtime Environm
 
 Desmond O'Brien -- desmondobrien01@outlook.com
 
-Project Link: [https://github.com/desobob11/SDLDoom](https://github.com/desobob11/Pong)]([https://github.com/desobob11/SDLDoom](https://github.com/desobob11/Pong)
+Project Link: [https://github.com/desobob11/SDLDoom](https://github.com/desobob11/Pong](https://github.com/desobob11/SDLDoom](https://github.com/desobob11/Pong)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
